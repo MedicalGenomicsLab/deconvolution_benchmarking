@@ -1,6 +1,6 @@
 <h1>  Deconvolution benchmarking </h1>
 
-Source code (Python v3.76.1 and R v4.2.0) to reproduce results descrbied in the article **Performance of tumour microenvironment deconvolution methods in breast cancer using single-cell simulated bulk mixtures** submitted to Nature Communications on 31st July 2022.
+Source code (Python v3.76.1 and R v4.2.0) to reproduce results described in the article **Performance of tumour microenvironment deconvolution methods in breast cancer using single-cell simulated bulk mixtures** submitted to Nature Communications on 31st July 2022.
 
 ---
 
@@ -46,7 +46,7 @@ data/
 
 ```
 
-The `data/test` folder contains the bulk expressions that we deconvolute. `CBX` and `Scaden` require these files to be copied into their folders. `hspe` requires the bulk expressions to be logged and saved in its directory. All others methods require are pointed to the bulk expression files in `data/test` during their execution (see `.pbs` files).
+The `data/test` folder contains the bulk RNA expression data that we deconvolute. `CBX` and `Scaden` require these files to be copied into their folders. `hspe` requires the bulk expressions to be logged and saved in its directory. All others methods are pointed to the bulk expression files in `data/test` during their execution (see `.pbs` files).
 
 We have compressed and uploaded the training and test data for each experiment to [Figshare](???). You will need to download and extract the `.tar` files in the matching experiment folder, e.g. `exclude_normal_epithelial.tar` should be extracted inside `01_purity_levels_experiment/exclude_normal_epithelial/data/`. This will give you all the required training & test data organised in the structure described above.
 
