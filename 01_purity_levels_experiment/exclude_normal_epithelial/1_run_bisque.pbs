@@ -36,7 +36,7 @@ PURITY_LEVELS=(
 )
 PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
 
-# Set workin g directory
+# Set working directory
 WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/01_purity_levels_experiment/exclude_normal_epithelial"
 cd $WORK_DIR
 
