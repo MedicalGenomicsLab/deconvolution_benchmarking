@@ -58,6 +58,10 @@ The `data/results/` folder of each experiment contains the results of all method
 
 <h2> bisque </h2>
 
+**Publication:**
+
+Jew, B., Alvarez, M., Rahmani, E. et al. Accurate estimation of cell composition in bulk expression through robust integration of single-cell information. Nat Commun 11, 1971 (2020). https://doi.org/10.1038/s41467-020-15816-6
+
 **Data files:**
 
 - `logged_scRNA_ref.csv`: bisque requires the single-cell reference data to be logged
@@ -69,6 +73,10 @@ The `data/results/` folder of each experiment contains the results of all method
 - Run method as pbs job
 
 <h2> BayesPrism (bprism) </h2>
+
+**Publication:**
+
+Chu, T., Wang, Z., Pe’er, D. et al. Cell type and gene expression deconvolution with BayesPrism enables Bayesian integrative analysis across bulk and single-cell RNA sequencing in oncology. Nat Cancer 3, 505–517 (2022). https://doi.org/10.1038/s43018-022-00356-3
 
 **Data files:**
 
@@ -82,6 +90,10 @@ The `data/results/` folder of each experiment contains the results of all method
 - Run method as pbs job
 
 <h2> CIBERSORTx (CBX) </h2>
+
+**Publication:**
+
+Newman, A.M., Steen, C.B., Liu, C.L. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nat Biotechnol 37, 773–782 (2019). https://doi.org/10.1038/s41587-019-0114-2
 
 **Data files:**
 
@@ -101,6 +113,10 @@ The `data/results/` folder of each experiment contains the results of all method
 
 <h2> CPM </h2>
 
+**Publication:**
+
+Frishberg, A., Peshes-Yaloz, N., Cohn, O. et al. Cell composition analysis of bulk genomics using single-cell data. Nat Methods 16, 327–332 (2019). https://doi.org/10.1038/s41592-019-0355-5
+
 **Data:**
 
 We slightly modified the CPM source code to split the execution in half. The first half uses 48 CPUs and 300-500Gi of memory. The second half only uses 4 CPUs and 100Gi of memory. <br><br>
@@ -118,6 +134,10 @@ We slightly modified the CPM source code to split the execution in half. The fir
 
 <h2> DWLS </h2>
 
+**Publication:**
+
+Tsoucas, D., Dong, R., Chen, H. et al. Accurate estimation of cell-type composition from gene expression data. Nat Commun 10, 2975 (2019). https://doi.org/10.1038/s41467-019-10802-z
+
 **Data:**
 
 - `scRNA_ref.txt`: the single-cell reference matrix
@@ -129,6 +149,10 @@ We slightly modified the CPM source code to split the execution in half. The fir
 - Run method as pbs job
 
 <h2> EPIC </h2>
+
+**Publication:**
+
+Julien RacleKaat de JongePetra BaumgaertnerDaniel E SpeiserDavid Gfeller (2017) Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data eLife 6:e26476.
 
 **Data:**
 
@@ -144,6 +168,10 @@ EPIC is the only method that requires a pre-built signature matrix instead of si
 
 <h2> hspe </h2>
 
+**Publication:**
+
+Gregory J. Hunt. Johann A. Gagnon-Bartsch. "The role of scale in the estimation of cell-type proportions." Ann. Appl. Stat. 15 (1) 270 - 286, March 2021. https://doi.org/10.1214/20-AOAS1395
+
 **Data:**
 
 - `scRNA_ref.csv`: the single-cell reference matrix
@@ -157,6 +185,10 @@ EPIC is the only method that requires a pre-built signature matrix instead of si
 
 <h2> MuSiC </h2>
 
+**Publication:**
+
+Wang, X., Park, J., Susztak, K. et al. Bulk tissue cell type deconvolution with multi-subject single-cell expression reference. Nat Commun 10, 380 (2019). https://doi.org/10.1038/s41467-018-08023-x
+
 **Data:**
 
 - `scRNA_ref.csv`: the single-cell reference matrix
@@ -168,6 +200,10 @@ EPIC is the only method that requires a pre-built signature matrix instead of si
 - Run method as pbs job
 
 <h2> Scaden </h2>
+
+**Publication:**
+
+Menden K, Marouf M, Oller S, Dalmia A, Magruder DS, Kloiber K, et al. Deep learning-based cell composition analysis from tissue expression profiles. Sci Adv. 2020;6:eaba2619.
 
 **Data:**
 
