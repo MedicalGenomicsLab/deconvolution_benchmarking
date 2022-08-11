@@ -1,0 +1,63 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-HSP-MNR
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=2,mem=150Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-20
+#######################
+
+module load R/4.0.2
+
+PARTITION_PURITY_PAIRS=(
+        "0.5 0"
+        "0.5 1"
+        "0.5 2"
+        "0.5 3"
+        "0.5 4"
+        "0.5 5"
+        "0.5 6"
+        "0.5 7"
+        "0.5 8"
+        "0.5 9"
+        "0.5 10"
+        "0.5 11"
+        "0.5 12"
+        "0.5 13"
+        "0.5 14"
+        "0.5 15"
+        "0.5 16"
+        "0.5 17"
+        "0.5 18"
+        "0.5 19"
+)
+PAIR="${PARTITION_PURITY_PAIRS[$PBS_ARRAY_INDEX-1]}"
+PAIR_ARR=($PAIR)
+PUR_LVL=${PAIR_ARR[0]}
+SHARD="${PAIR_ARR[1]}"
+
+# Set working directory
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_04_05_minor_immune_lineages"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/hspe/scRNA_ref.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/hspe/logged_test_counts_${PUR_LVL}_pur_lvl_${SHARD}.txt"
+PUR_SAMPLES="${WORK_DIR}/data/hspe/pure_samples.json"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/hspe/results/${PUR_LVL}/${SHARD}"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_hspe.R"
+
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${GENE_COUNTS_FILE} \
+${PUR_SAMPLES} \
+${OUT_DIR}

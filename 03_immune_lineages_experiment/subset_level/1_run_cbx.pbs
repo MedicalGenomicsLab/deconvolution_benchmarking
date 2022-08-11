@@ -1,0 +1,37 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-CBX-IM
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=4,mem=150Gb 
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load singularity/3.7.1
+
+# Set purity level
+PUR_LVL="0.5"
+
+# Set working directory
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_03_05_immune_lineages_remastered/data/cbx"
+cd $WORK_DIR
+
+# Specify paths to data files and output
+GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
+OUT_DIR="./results_perm_100/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+# Run CBX
+singularity run \
+-B ./:/src/data \
+-B $OUT_DIR:/src/outdir \
+--pwd /src \
+/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+--username <EMAIL> \
+--token <TOKEN> \
+--single_cell TRUE \
+--perm 100 \
+--refsample scRNA_ref.txt \
+--mixture $GENE_COUNTS_FILE

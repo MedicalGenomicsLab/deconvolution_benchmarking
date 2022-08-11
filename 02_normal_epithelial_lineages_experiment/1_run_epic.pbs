@@ -1,0 +1,46 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-EPIC-NORMAL
+#PBS -l walltime=48:00:00
+#PBS -l ncpus=4,mem=30Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-4
+#######################
+
+module load R/4.0.2
+
+PURITY_LEVELS=(
+        0.45
+        0.5
+        0.55
+        0.6
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages"
+cd $WORK_DIR
+
+# If we're using default reference profiles
+# GENE_REF="${WORK_DIR}/data/epic/default_sig_matrix/TRef.rda"
+# SIG_MATRIX="default"
+# SIG_GENES_FILE=""
+
+# If we're using CBX reference profiles
+GENE_REF="${WORK_DIR}/data/epic/cbx_sig_matrix/reference_profiles.csv"
+SIG_MATRIX="cbx"
+SIG_GENES_FILE="${WORK_DIR}/data/epic/cbx_sig_matrix/marker_gene_symbols.csv"
+
+GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
+
+OUT_DIR="${WORK_DIR}/data/epic/cbx_sig_matrix/results/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+Rscript 1_run_epic.R \
+${GENE_REF} \
+${GENE_COUNTS_FILE} \
+${SIG_MATRIX} \
+${SIG_GENES_FILE} \
+${OUT_DIR} 

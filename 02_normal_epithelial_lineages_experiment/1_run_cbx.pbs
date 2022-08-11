@@ -1,0 +1,40 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-CBX-NORMAL
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=4,mem=20Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-4
+#######################
+
+module load singularity/3.7.1
+
+PURITY_LEVELS=(
+        0.45
+        0.5
+        0.55
+        0.6
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages/data/cbx"
+cd $WORK_DIR
+
+GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
+OUT_DIR="./results_perm_100/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+singularity run \
+-B ./:/src/data \
+-B $OUT_DIR:/src/outdir \
+--pwd /src \
+/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+--username <EMAIL> \
+--token <TOKEN> \
+--single_cell TRUE \
+--perm 100 \
+--refsample scRNA_ref.txt \
+--mixture $GENE_COUNTS_FILE

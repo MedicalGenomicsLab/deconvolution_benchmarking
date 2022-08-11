@@ -1,0 +1,42 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-BPR-NORMAL
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=120Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load R/4.2.0
+
+PUR_LVL="0.5"
+
+# Set working directory
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/bprism/scRNA_ref.csv"
+SC_LABELS="${WORK_DIR}/data/bprism/single_cell_labels.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/bprism/results/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_bprism.R"
+
+# Number of cores we'd like to run BayesPrism with
+N_CPUS="10"
+
+# Run BayesPrism
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_LABELS} \
+${GENE_COUNTS_FILE} \
+${OUT_DIR} \
+${N_CPUS}

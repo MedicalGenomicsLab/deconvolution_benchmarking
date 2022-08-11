@@ -1,0 +1,38 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-MSC-NORMAL
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=100Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -q gpu
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-4
+#######################
+
+module load R/4.0.2
+
+PURITY_LEVELS=(
+        0.45
+        0.5
+        0.55
+        0.6
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages"
+cd $WORK_DIR
+
+SC_REF="${WORK_DIR}/data/music/scRNA_ref.csv"
+SC_PHENOTYPES="${WORK_DIR}/data/music/pheno.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
+
+OUT_DIR="${WORK_DIR}/data/music/results/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+Rscript 1_2_run_music.R \
+${SC_REF} \
+${SC_PHENOTYPES} \
+${GENE_COUNTS_FILE} \
+${OUT_DIR}

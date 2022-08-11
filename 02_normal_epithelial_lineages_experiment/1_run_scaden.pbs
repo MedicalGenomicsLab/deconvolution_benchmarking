@@ -1,0 +1,50 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-SDN-NORMAL
+#PBS -l walltime=72:00:00
+#PBS -l ngpus=1,ncpus=4,mem=20Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -q gpu
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-4
+#######################
+
+source /software/scaden/scaden-0.9.4-venv/bin/activate
+module load gpu/cuda/10.1
+
+PURITY_LEVELS=(
+        0.45
+        0.5
+        0.55
+        0.6
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages/data/scaden"
+cd $WORK_DIR
+
+MODEL="kondrashova_train_${PUR_LVL}"
+MODEL_DIR="${MODEL}/model/"
+mkdir -p $MODEL_DIR
+
+GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
+OUT_FILE="${MODEL}/results.txt"
+
+# Process data
+scaden process \
+train_counts.h5ad \
+${GENE_COUNTS_FILE} \
+--processed_path ${MODEL}/processed_train_counts.h5ad
+
+# Train model
+scaden train \
+${MODEL}/processed_train_counts.h5ad \
+--steps 15000 \
+--model_dir ${MODEL_DIR} 
+
+# Run prediction
+scaden predict \
+--model_dir $MODEL_DIR \
+--outname $OUT_FILE $GENE_COUNTS_FILE
