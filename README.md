@@ -5,7 +5,7 @@ Source code (Python v3.76.1 and R v4.2.0) to reproduce results described in the 
 ---
 
 <h2> Overview </h2> 
-There are 5 experiments with the overal directory structure as follows:
+There are 5 experiments with the overall directory structure as follows:
 
 ```
 .
@@ -48,7 +48,7 @@ data/
 
 The `data/test` folder contains the bulk RNA expression data that we deconvolute. `CBX` and `Scaden` require these files to be copied into their folders. `hspe` requires the bulk expressions to be logged and saved in its directory. All others methods are pointed to the bulk expression files in `data/test` during their execution (see `.pbs` files).
 
-We have compressed and uploaded the training and test data for each experiment to [Figshare](???). You will need to download and extract the `.tar` files in the matching experiment folder, e.g. `exclude_normal_epithelial.tar` should be extracted inside `01_purity_levels_experiment/exclude_normal_epithelial/data/`. This will give you all the required training & test data organised in the structure described above.
+We have compressed the training and test data for each experiment (this is available on request). You will need to access and extract the `.tar` files in the matching experiment folder, e.g. `exclude_normal_epithelial.tar` should be extracted inside `01_purity_levels_experiment/exclude_normal_epithelial/data/`. This will give you all the required training & test data organised in the structure described above.
 
 The `data/results/` folder of each experiment contains the results of all methods. To collect methods' results, refer to the section **Collect test results**.
 
@@ -60,7 +60,7 @@ The `data/results/` folder of each experiment contains the results of all method
 
 **Publication:**
 
-Jew, B., Alvarez, M., Rahmani, E. et al. Accurate estimation of cell composition in bulk expression through robust integration of single-cell information. Nat Commun 11, 1971 (2020). https://doi.org/10.1038/s41467-020-15816-6
+Jew B., Alvarez M., Rahmani E. et al. Accurate estimation of cell composition in bulk expression through robust integration of single-cell information. Nat Commun 11, 1971 (2020). https://doi.org/10.1038/s41467-020-15816-6
 
 **Data files:**
 
@@ -93,7 +93,7 @@ Chu, T., Wang, Z., Pe’er, D. et al. Cell type and gene expression deconvolutio
 
 **Publication:**
 
-Newman, A.M., Steen, C.B., Liu, C.L. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nat Biotechnol 37, 773–782 (2019). https://doi.org/10.1038/s41587-019-0114-2
+Newman A.M., Steen C.B., Liu C.L. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nat Biotechnol 37, 773–782 (2019). https://doi.org/10.1038/s41587-019-0114-2
 
 **Data files:**
 
@@ -115,7 +115,7 @@ Newman, A.M., Steen, C.B., Liu, C.L. et al. Determining cell type abundance and 
 
 **Publication:**
 
-Frishberg, A., Peshes-Yaloz, N., Cohn, O. et al. Cell composition analysis of bulk genomics using single-cell data. Nat Methods 16, 327–332 (2019). https://doi.org/10.1038/s41592-019-0355-5
+Frishberg A., Peshes-Yaloz N., Cohn O. et al. Cell composition analysis of bulk genomics using single-cell data. Nat Methods 16, 327–332 (2019). https://doi.org/10.1038/s41592-019-0355-5
 
 **Data:**
 
@@ -136,7 +136,7 @@ We slightly modified the CPM source code to split the execution in half. The fir
 
 **Publication:**
 
-Tsoucas, D., Dong, R., Chen, H. et al. Accurate estimation of cell-type composition from gene expression data. Nat Commun 10, 2975 (2019). https://doi.org/10.1038/s41467-019-10802-z
+Tsoucas D., Dong R., Chen H. et al. Accurate estimation of cell-type composition from gene expression data. Nat Commun 10, 2975 (2019). https://doi.org/10.1038/s41467-019-10802-z
 
 **Data:**
 
@@ -152,7 +152,7 @@ Tsoucas, D., Dong, R., Chen, H. et al. Accurate estimation of cell-type composit
 
 **Publication:**
 
-Julien RacleKaat de JongePetra BaumgaertnerDaniel E SpeiserDavid Gfeller (2017) Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data eLife 6:e26476.
+Julien Racle, Kaat de Jonge, Petra Baumgaertner, Daniel E. Speiser, David Gfeller (2017) Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data eLife 6:e26476. https://doi.org/10.7554/eLife.26476
 
 **Data:**
 
@@ -170,7 +170,7 @@ EPIC is the only method that requires a pre-built signature matrix instead of si
 
 **Publication:**
 
-Gregory J. Hunt. Johann A. Gagnon-Bartsch. "The role of scale in the estimation of cell-type proportions." Ann. Appl. Stat. 15 (1) 270 - 286, March 2021. https://doi.org/10.1214/20-AOAS1395
+Gregory J. Hunt, Johann A. Gagnon-Bartsch. "The role of scale in the estimation of cell-type proportions." Ann. Appl. Stat. 15 (1) 270 - 286, March 2021. https://doi.org/10.1214/20-AOAS1395
 
 **Data:**
 
@@ -203,7 +203,7 @@ Wang, X., Park, J., Susztak, K. et al. Bulk tissue cell type deconvolution with 
 
 **Publication:**
 
-Menden K, Marouf M, Oller S, Dalmia A, Magruder DS, Kloiber K, et al. Deep learning-based cell composition analysis from tissue expression profiles. Sci Adv. 2020;6:eaba2619.
+Menden K., Marouf M., Oller S., Dalmia A., Magruder D.S., Kloiber K., et al. Deep learning-based cell composition analysis from tissue expression profiles. Sci Adv. 2020;6:eaba2619. https://doi.org/10.1126/sciadv.aba2619
 
 **Data:**
 
