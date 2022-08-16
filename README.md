@@ -2,9 +2,67 @@
 
 Source code (Python v3.76.1 and R v4.2.0) to reproduce results described in the article **Performance of tumour microenvironment deconvolution methods in breast cancer using single-cell simulated bulk mixtures** submitted to Nature Communications on 31st July 2022.
 
+- [System requirements](#system-requirements)
+- [Experiment structure](#experiment-structure)
+- [Method execution instructions](#method-execution-instructions)
+- [Collect test results](#collect-test-results)
+
 ---
 
-<h2> Overview </h2> 
+# System requirements
+We generated results for this study using Python/3.6.1, R/3.5.0 on, and R/4.0.2 on 
+CenOS Linux 7 (Core). Below are the dependencies for the Python and R languages. 
+
+## Python dependencies
+- scaden 
+- pandas 1.1.5
+- numpy 1.19.5
+- anndata 0.6.22.post1
+- scanpy 1.4.4.post1
+- gtfparse 1.2.0
+- plotly 4.1.0
+- smote-variants 0.4.0
+
+## R dependencies
+The method DWLS requires R/3.5.0 environment while all other R-based methods require R/4.0.2 environment. 
+
+### R/3.5.0 dependencies
+- quadprog 1.5.5
+- reshape 0.8.8
+- e1071 1.6.8
+- Seurat 2.3.3
+- ROCR 1.0.7
+- varhandle 2.0.5
+- MAST 1.6.0
+
+### R/4.0.2 dependencies
+- BisqueRNA 1.0.5
+- Biobase 2.50.0
+- TED 1.4
+- scBio 1.4
+- Seurat 4.0.3
+- foreach 1.5.1
+- doSNOW 1.0.19
+- parallel 4.0.2
+- raster 3.4.13
+- fields 12.5
+- limma 3.46.0
+- LiblineaR 2.10.12
+- sp 1.4.5
+- EPIC 1.1.5
+- jsonlite 1.7.2
+- hspe 0.1
+- MuSiC 0.2.0
+- xbioc 1.7.2
+
+
+## Singularity dependencies
+The method CIBERSORTx does not provide source code and can only be executed via a Docker container. As Docker requires root access, which could not be run on our infrastructure, we converted the CIBERSORT Docker images to a Singularity image. This requires:
+- Docker 20.10.17
+- Singularity 3.6.1
+
+
+# Experiment structure
 There are 5 experiments with the overall directory structure as follows:
 
 ```
@@ -54,9 +112,9 @@ The `data/results/` folder of each experiment contains the results of all method
 
 ---
 
-<h2> Method execution instructions  </h2> 
+# Method execution instructions  
 
-<h2> bisque </h2>
+## bisque
 
 **Publication:**
 
@@ -72,7 +130,7 @@ Jew B., Alvarez M., Rahmani E. et al. Accurate estimation of cell composition in
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_bisque.pbs` file
 - Run method as pbs job
 
-<h2> BayesPrism (bprism) </h2>
+## BayesPrism (bprism) 
 
 **Publication:**
 
@@ -217,7 +275,7 @@ Menden K., Marouf M., Oller S., Dalmia A., Magruder D.S., Kloiber K., et al. Dee
 
 ---
 
-<h2> Collect test results </h2> 
+## Collect test results
 
 Once all methods have been executed, you can collect results from all methods using the `2_collate_test_results.ipynb` Jupyter notebook in each experiment directory.
 
