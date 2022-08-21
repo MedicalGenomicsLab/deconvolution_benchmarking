@@ -128,11 +128,7 @@ Besides `CIBERSORTx` and `Scaden`, `.psb` run scripts of all methods point to th
 
 CPUs and memory requirements for each job are already specified in corresponding `.pbs` files.
 
-## bisque
-
-**Publication:**
-
-Jew B., Alvarez M., Rahmani E. et al. Accurate estimation of cell composition in bulk expression through robust integration of single-cell information. Nat Commun 11, 1971 (2020). https://doi.org/10.1038/s41467-020-15816-6
+## [BisqueRNA (bisque)](https://doi.org/10.1038/s41467-020-15816-6)
 
 **Data files:**
 
@@ -144,12 +140,7 @@ Jew B., Alvarez M., Rahmani E. et al. Accurate estimation of cell composition in
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_bisque.pbs` file
 - Run method as pbs job
 
-## BayesPrism (bprism) 
-
-**Publication:**
-
-Chu, T., Wang, Z., Pe’er, D. et al. Cell type and gene expression deconvolution with BayesPrism enables Bayesian integrative analysis across bulk and single-cell RNA sequencing in oncology. Nat Cancer 3, 505–517 (2022). https://doi.org/10.1038/s43018-022-00356-3
-
+## [BayesPrism (bprism)](https://doi.org/10.1038/s43018-022-00356-3)
 **Data files:**
 
 - `scRNA_ref.csv`: single-cell reference profiles. Columns are cell ids and rows are gene symbols
@@ -161,12 +152,7 @@ Chu, T., Wang, Z., Pe’er, D. et al. Cell type and gene expression deconvolutio
 - (Optional) Increase number of available CPUs in the `PBS -l` option and `N_CPUS` variable.
 - Run method as pbs job
 
-<h2> CIBERSORTx (CBX) </h2>
-
-**Publication:**
-
-Newman A.M., Steen C.B., Liu C.L. et al. Determining cell type abundance and expression from bulk tissues with digital cytometry. Nat Biotechnol 37, 773–782 (2019). https://doi.org/10.1038/s41587-019-0114-2
-
+## [CIBERSORTx (CBX)](https://doi.org/10.1038/s41587-019-0114-2)
 **Data files:**
 
 - `scRNA_ref.txt`: the single-cell reference matrix. Columns are cells and column names are cell types. CBX infers cell types using column names and therefore does not need a single-cell labels files like other methods.
@@ -181,12 +167,7 @@ Newman A.M., Steen C.B., Liu C.L. et al. Determining cell type abundance and exp
   - Path to the Singularity image `fractions_latest.sif`
   - `--token` with the token requested from [cibersortx.stanford.edu](https://cibersortx.stanford.edu/)
 
-<h2> CPM </h2>
-
-**Publication:**
-
-Frishberg A., Peshes-Yaloz N., Cohn O. et al. Cell composition analysis of bulk genomics using single-cell data. Nat Methods 16, 327–332 (2019). https://doi.org/10.1038/s41592-019-0355-5
-
+## [Cell Population Mapping (CPM)](https://doi.org/10.1038/s41592-019-0355-5)
 **Data:**
 
 We slightly modified the CPM source code to split the execution in half. The first half uses 48 CPUs and 300-500Gi of memory. The second half only uses 4 CPUs and 100Gi of memory. <br><br>
@@ -202,12 +183,7 @@ We slightly modified the CPM source code to split the execution in half. The fir
 - Run `1_run_cpm_1.pbs` first as a pbs job
 - Wait for `1_run_cpm_1.pbs` to finish. Then run `1_run_cpm_2.pbs` as PBS job
 
-<h2> DWLS </h2>
-
-**Publication:**
-
-Tsoucas D., Dong R., Chen H. et al. Accurate estimation of cell-type composition from gene expression data. Nat Commun 10, 2975 (2019). https://doi.org/10.1038/s41467-019-10802-z
-
+## [DWLS](https://doi.org/10.1038/s41467-019-10802-z)
 **Data:**
 
 - `scRNA_ref.txt`: the single-cell reference matrix
@@ -218,12 +194,7 @@ Tsoucas D., Dong R., Chen H. et al. Accurate estimation of cell-type composition
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_dwls.pbs` file
 - Run method as pbs job
 
-<h2> EPIC </h2>
-
-**Publication:**
-
-Julien Racle, Kaat de Jonge, Petra Baumgaertner, Daniel E. Speiser, David Gfeller (2017) Simultaneous enumeration of cancer and immune cell types from bulk tumor gene expression data eLife 6:e26476. https://doi.org/10.7554/eLife.26476
-
+## [EPIC](https://doi.org/10.7554/eLife.26476)
 **Data:**
 
 EPIC is the only method that requires a pre-built signature matrix instead of single-cell reference. We provided EPIC with the signature matrix that CBX generated during its execution. This is the reason why you see data files for EPIC in the `cbx_sig_matrix` folder.
@@ -236,12 +207,7 @@ EPIC is the only method that requires a pre-built signature matrix instead of si
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_epic.pbs` file
 - Run method as pbs job
 
-<h2> hspe </h2>
-
-**Publication:**
-
-Gregory J. Hunt, Johann A. Gagnon-Bartsch. "The role of scale in the estimation of cell-type proportions." Ann. Appl. Stat. 15 (1) 270 - 286, March 2021. https://doi.org/10.1214/20-AOAS1395
-
+## [hspe](https://doi.org/10.1214/20-AOAS1395)
 **Data:**
 
 - `scRNA_ref.csv`: the single-cell reference matrix
@@ -253,12 +219,7 @@ Gregory J. Hunt, Johann A. Gagnon-Bartsch. "The role of scale in the estimation 
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_hspe.pbs` file
 - Run method as pbs job
 
-<h2> MuSiC </h2>
-
-**Publication:**
-
-Wang, X., Park, J., Susztak, K. et al. Bulk tissue cell type deconvolution with multi-subject single-cell expression reference. Nat Commun 10, 380 (2019). https://doi.org/10.1038/s41467-018-08023-x
-
+## [MuSiC](https://doi.org/10.1038/s41467-018-08023-x)
 **Data:**
 
 - `scRNA_ref.csv`: the single-cell reference matrix
@@ -269,12 +230,7 @@ Wang, X., Park, J., Susztak, K. et al. Bulk tissue cell type deconvolution with 
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_music.pbs` file
 - Run method as pbs job
 
-<h2> Scaden </h2>
-
-**Publication:**
-
-Menden K., Marouf M., Oller S., Dalmia A., Magruder D.S., Kloiber K., et al. Deep learning-based cell composition analysis from tissue expression profiles. Sci Adv. 2020;6:eaba2619. https://doi.org/10.1126/sciadv.aba2619
-
+## [Scaden](https://doi.org/10.1126/sciadv.aba2619)
 **Data:**
 
 - `train_counts.h5ad`: Scaden is the only methods that requires simulated bulk mixtures as training data. It also requires these mixtures to be compressed into an AnnData (.h5ad) object.
