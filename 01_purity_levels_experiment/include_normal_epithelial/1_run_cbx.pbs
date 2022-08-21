@@ -2,7 +2,7 @@
 #######################
 #PBS -N RUN-CBX-9
 #PBS -l walltime=72:00:00
-#PBS -l ncpus=4,mem=40Gb 
+#PBS -l ncpus=4,mem=100Gb 
 #PBS -j oe
 #PBS -m ae
 #PBS -M <EMAIL>
@@ -36,12 +36,12 @@ PURITY_LEVELS=(
 PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
 
 # Set working directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_05_02_nine_major_cell_types_10/data/cbx"
+WORK_DIR="???/deconvolution_benchmarking/01_purity_levels_experiment/include_normal_epithelial/data/cbx"
 cd $WORK_DIR
 
 # Specify paths to data files and output
 GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
-OUT_DIR="./results_perm_100/${PUR_LVL}"
+OUT_DIR="./results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
 # Run CBX
@@ -49,7 +49,7 @@ singularity run \
 -B ./:/src/data \
 -B $OUT_DIR:/src/outdir \
 --pwd /src \
-/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+???/fractions_latest.sif \
 --username <EMAIL> \
 --token <TOKEN> \
 --single_cell TRUE \

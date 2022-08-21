@@ -36,11 +36,11 @@ PURITY_LEVELS=(
 PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
 
 # Set workin g directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/01_purity_levels_experiment/exclude_normal_epithelial"
+WORK_DIR="???/deconvolution_benchmarking/01_purity_levels_experiment/exclude_normal_epithelial"
 cd $WORK_DIR
 
 # Specify paths to data files
-EXPERIMENT="expr_2_original_cellstate_1330_per_ctype"
+EXPERIMENT="expr_1_original_cellstate_1330_per_ctype"
 
 SC_REF="${WORK_DIR}/data/cpm/${EXPERIMENT}/scRNA_ref_1330_per_ctype_without_normal.txt"
 GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
@@ -51,7 +51,7 @@ mkdir -p $OUT_DIR
 STAGE_1_OUTPUT="${OUT_DIR}/stage_1_output.rda"
 
 # Specify path to execution scripts
-SRC_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/src"
+SRC_DIR="???/deconvolution_benchmarking/src"
 SCRIPT_PATH="${SRC_DIR}/1_run_cpm_2.R"
 
 # CPM's confidence interval calculation utilizes hundreds of GBis (and potentially TBis)

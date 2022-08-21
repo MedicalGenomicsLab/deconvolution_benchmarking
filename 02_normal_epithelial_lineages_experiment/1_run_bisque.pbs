@@ -7,30 +7,30 @@
 #PBS -m ae
 #PBS -M <EMAIL>
 #PBS -W umask=0027
-#PBS -J 1-4
 #######################
 
 module load R/4.0.2
 
-PURITY_LEVELS=(
-        0.45
-        0.5
-        0.55
-        0.6
-)
-PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+PUR_LVL="0.5"
 
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages"
+WORK_DIR="???/deconvolution_benchmarking/02_normal_epithelial_lineages_experiment"
 cd $WORK_DIR
 
+# Specify paths to data files 
 SC_REF="${WORK_DIR}/data/bisque/scaled_logged_scRNA_ref.csv"
 SC_PHENOTYPES="${WORK_DIR}/data/bisque/phenotypes.csv"
-GENE_COUNTS_FILE="${WORK_DIR}/data/bisque/test_counts_${PUR_LVL}_pur_lvl.txt"
+GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
 
-OUT_DIR="${WORK_DIR}/data/bisque/results_minmaxscale/${PUR_LVL}"
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/bisque/results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
-Rscript 1_run_bisque.R \
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_bisque.R"
+
+# Run bisque
+Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_PHENOTYPES} \
 ${GENE_COUNTS_FILE} \

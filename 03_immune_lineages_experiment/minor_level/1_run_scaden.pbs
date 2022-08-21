@@ -17,26 +17,25 @@ module load gpu/cuda/10.1
 PUR_LVL="0.5"
 
 # Set working directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_04_05_minor_immune_lineages/data/scaden"
+WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/minor_level/data/cbx"
 cd $WORK_DIR
 
 # Specify paths to data files
-MODEL="kondrashova_train"
-MODEL_DIR="${MODEL}/model"
+MODEL_DIR="./${PUR_LVL}/model"
 mkdir -p $MODEL_DIR
 
 GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
-OUT_FILE="${MODEL}/results_${PUR_LVL}.txt"
+OUT_FILE="./${PUR_LVL}/results_${PUR_LVL}.txt"
 
 # Process data
 scaden process \
 train_counts.h5ad \
 test_counts_${PUR_LVL}_pur_lvl.txt \
---processed_path ${MODEL}/processed_train_counts.h5ad
+--processed_path ${PUR_LVL}/processed_train_counts_${PUR_LVL}.h5ad
 
 # Train model
 scaden train \
-${MODEL}/processed_train_counts.h5ad \
+${PUR_LVL}/processed_train_counts_${PUR_LVL}.h5ad \
 --steps 15000 \
 --model_dir ${MODEL_DIR} 
 

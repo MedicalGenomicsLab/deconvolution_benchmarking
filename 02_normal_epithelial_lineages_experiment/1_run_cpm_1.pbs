@@ -2,41 +2,42 @@
 #######################
 #PBS -N RUN-CPM-NORMAL-1
 #PBS -l walltime=72:00:00
-#PBS -l ncpus=35,mem=400Gb
+#PBS -l ncpus=48,mem=400Gb
 #PBS -j oe
 #PBS -m ae
 #PBS -M <EMAIL>
 #PBS -W umask=0027
-#PBS -J 1-4
 #######################
 
 module load R/4.0.2
 
-PURITY_LEVELS=(
-        0.55
-        0.45
-        0.5
-        0.6
-)
-PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+PUR_LVL="0.5"
 
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages"
+WORK_DIR="???/deconvolution_benchmarking/02_normal_epithelial_lineages_experiment"
 cd $WORK_DIR
 
-EXPERIMENT="expr_4_original_cellstate_all_cells"
+# Specify paths to data files
+EXPERIMENT="expr_1_original_cellstate_1330_per_ctype"
 
-SC_REF="${WORK_DIR}/data/cpm/${EXPERIMENT}/scRNA_ref.txt"
+SC_REF="${WORK_DIR}/data/cpm/${EXPERIMENT}/scRNA_ref_1330_per_ctype.txt"
 SC_LABELS="${WORK_DIR}/data/cpm/${EXPERIMENT}/single_cell_label.csv"
 SC_SPACE="${WORK_DIR}/data/cpm/${EXPERIMENT}/cell_state.csv"
 GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
 
+# Specify paths to output
 OUT_DIR="${WORK_DIR}/data/cpm/${EXPERIMENT}/results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
-NUM_CORES=35
+# Specify path to execution scripts
+SRC_DIR="~/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_cpm_1.R"
+
+# CPM parameters
+NUM_CORES=48
 NEIGHBORHOOD_SIZE=50
 
-Rscript 1_2_run_cpm_1.R \
+# Run CPM - Stage 1
+Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_LABELS} \
 ${SC_SPACE} \

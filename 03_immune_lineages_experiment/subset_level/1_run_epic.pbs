@@ -14,8 +14,8 @@ module load R/4.0.2
 # Set purity level
 PUR_LVL="0.5"
 
-# Set workin g directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_03_05_immune_lineages_remastered"
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/subset_level"
 cd $WORK_DIR
 
 # Specify paths to data files
@@ -28,7 +28,7 @@ OUT_DIR="${WORK_DIR}/data/epic/cbx_sig_matrix/results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
 # Specify path to execution scripts
-SRC_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/src"
+SRC_DIR="???/deconvolution_benchmarking/src"
 SCRIPT_PATH="${SRC_DIR}/1_run_epic.R"
 
 # EPIC parameter 
@@ -40,4 +40,4 @@ ${GENE_REF} \
 ${GENE_COUNTS_FILE} \
 ${SIG_MATRIX} \
 ${SIG_GENES_FILE} \
-${OUT_DIR} 
+${OUT_DIR}  

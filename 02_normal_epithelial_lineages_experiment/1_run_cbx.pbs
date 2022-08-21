@@ -7,31 +7,27 @@
 #PBS -m ae
 #PBS -M <EMAIL>
 #PBS -W umask=0027
-#PBS -J 1-4
 #######################
 
 module load singularity/3.7.1
 
-PURITY_LEVELS=(
-        0.45
-        0.5
-        0.55
-        0.6
-)
-PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+PUR_LVL="0.5"
 
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2021_12_05_normal_lineages/data/cbx"
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/02_normal_epithelial_lineages_experiment/data/cbx"
 cd $WORK_DIR
 
+# Specify paths to data files and output
 GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
-OUT_DIR="./results_perm_100/${PUR_LVL}"
+OUT_DIR="./results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
+# Run CBX
 singularity run \
 -B ./:/src/data \
 -B $OUT_DIR:/src/outdir \
 --pwd /src \
-/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+???/fractions_latest.sif \
 --username <EMAIL> \
 --token <TOKEN> \
 --single_cell TRUE \

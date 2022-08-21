@@ -39,11 +39,11 @@ PURITY_LEVELS=(
 PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
 
 # Set working directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_05_02_nine_major_cell_types_10/data/scaden"
+WORK_DIR="~/deconvolution_benchmarking/2022_05_02_nine_major_cell_types_10/data/scaden"
 cd $WORK_DIR
 
 # Specify paths to data files
-MODEL_DIR="${PUR_LVL}/model"
+MODEL_DIR="./${PUR_LVL}/model"
 mkdir -p $MODEL_DIR
 
 GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"

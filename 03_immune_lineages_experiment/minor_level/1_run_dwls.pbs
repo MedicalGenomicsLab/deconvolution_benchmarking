@@ -15,9 +15,8 @@ module load R/3.5.0
 PUR_LVL="0.5"
 
 # Set working directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_04_05_minor_immune_lineages"
+WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/minor_level"
 cd $WORK_DIR
-
 
 # Specify paths to data files
 SC_REF="${WORK_DIR}/data/dwls/scRNA_ref.csv"
@@ -29,7 +28,7 @@ OUT_DIR="${WORK_DIR}/data/dwls/results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
 # Specify path to execution scripts
-SRC_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/src"
+SRC_DIR="???/deconvolution_benchmarking/src"
 SCRIPT_PATH="${SRC_DIR}/1_run_dwls.R"
 
 # Run DWLS

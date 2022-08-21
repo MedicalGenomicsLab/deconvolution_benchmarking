@@ -15,12 +15,12 @@ module load singularity/3.7.1
 PUR_LVL="0.5"
 
 # Set working directory
-WORK_DIR="/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/2022_04_05_minor_immune_lineages/data/cbx"
+WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/minor_level/data/cbx"
 cd $WORK_DIR
 
 # Specify paths to data files and output
 GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.txt"
-OUT_DIR="./results_perm_100/${PUR_LVL}"
+OUT_DIR="./results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
 # Run CBX
@@ -28,7 +28,7 @@ singularity run \
 -B ./:/src/data \
 -B $OUT_DIR:/src/outdir \
 --pwd /src \
-/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+???/fractions_latest.sif \
 --username <EMAIL> \
 --token <TOKEN> \
 --single_cell TRUE \
