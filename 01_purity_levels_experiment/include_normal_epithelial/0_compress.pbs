@@ -5,9 +5,8 @@
 #PBS -l ncpus=10,mem=150Gb
 #PBS -j oe
 #PBS -m ae
-#PBS -M <EMAIL>
+#PBS -M khoa.tran@qimrberghofer.edu.au
 #PBS -W umask=0027
-#PBS -J 1-19
 #######################
 
 # Set working directory
