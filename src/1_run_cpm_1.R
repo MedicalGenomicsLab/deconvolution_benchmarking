@@ -10,7 +10,7 @@ num_cores <- strtoi(temp_args[6])
 neighborhood_size <- strtoi(temp_args[7])
 
 source(
-  "/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_benchmarking/deconvolution_benchmarking/src/1_CPM_functions.R"
+  "???/deconvolution_benchmarking/src/1_CPM_functions.R"
 )
 
 # Load single-cell reference matrix

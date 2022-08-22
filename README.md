@@ -3,10 +3,24 @@
 Source code (Python v3.76.1 and R v4.2.0) to reproduce results described in the article **Performance of tumour microenvironment deconvolution methods in breast cancer using single-cell simulated bulk mixtures** submitted to Nature Communications on 31st July 2022.
 
 - [System requirements](#system-requirements)
+  - [Python dependencies](#python-dependencies)
+  - [R dependencies](#r-dependencies)
+    - [R/3.5.0 dependencies](#r350-dependencies)
+    - [R/4.0.2 dependencies](#r402-dependencies)
+  - [Singularity dependencies](#singularity-dependencies)
 - [Experiment structure](#experiment-structure)
 - [Prepare training and test data](#prepare-training-and-test-data)
 - [Method execution instructions](#method-execution-instructions)
-- [Collect test results](#collect-test-results)
+  - [BisqueRNA (bisque)](#bisquerna-bisque)
+  - [BayesPrism (bprism)](#bayesprism-bprism)
+  - [CIBERSORTx (CBX)](#cibersortx-cbx)
+  - [Cell Population Mapping (CPM)](#cell-population-mapping-cpm)
+  - [DWLS](#dwls)
+  - [EPIC](#epic)
+  - [hspe](#hspe)
+  - [MuSiC](#music)
+  - [Scaden](#scaden)
+  - [Collect test results](#collect-test-results)
 
 ---
 
@@ -179,9 +193,9 @@ We slightly modified the CPM source code to split the execution in half. The fir
 **Running:**
 - Replace user email in `PBS -M` option
 - Modify `WORK_DIR` and `SRC_DIR` paths in `1_run_cpm_1.pbs` and `1_run_cpm_2.pbs` files
-- Update path to the `1_CPM_functions.R` file in `1_run_cpm_1.pbs`
+- Update path to the `1_CPM_functions.R` file in `src/1_run_cpm_1.R` and `src/1_run_cpm_2.R`
 - Run `1_run_cpm_1.pbs` first as a pbs job
-- Wait for `1_run_cpm_1.pbs` to finish. Then run `1_run_cpm_2.pbs` as PBS job
+- Wait for `1_run_cpm_1.pbs` to finish. Then run `src/1_run_cpm_2.pbs` as PBS job
 
 ## [DWLS](https://doi.org/10.1038/s41467-019-10802-z)
 **Data:**
