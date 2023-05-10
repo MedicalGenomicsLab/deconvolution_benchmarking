@@ -73,7 +73,7 @@ The method DWLS requires R/3.5.0 environment while all other R-based methods req
 
 
 ## Singularity dependencies
-The method CIBERSORTx does not provide source code and can only be executed via a Docker container. As Docker requires root access, which could not be run on our infrastructure, we converted the CIBERSORT Docker images to a Singularity image. This requires:
+The method CIBERSORTx does not provide source code and can only be executed via a Docker container. As Docker requires root access, which could not be run on our infrastructure, we converted the CIBERSORTx Docker images to a Singularity image. This requires:
 - Docker 20.10.17
 - Singularity 3.6.1
 
@@ -147,6 +147,8 @@ Besides `CIBERSORTx` and `Scaden`, `.psb` run scripts of all methods point to th
 
 CPUs and memory requirements for each job are already specified in corresponding `.pbs` files.
 
+`NOTE`: each method could produce different sets of results depending on the specified parameter. For example, BayesPrism enables users to optionally input marker genes and cell states (cell subtypes), or to use only marker genes. Choosing to use each of these functionality will produce a different set of results, meaning the `results` folder in the `.pbs` script for each method needs to be adjusted accordingly.
+
 ## [BisqueRNA (bisque)](https://doi.org/10.1038/s41467-020-15816-6)
 
 **Data files:**
@@ -181,7 +183,7 @@ CPUs and memory requirements for each job are already specified in corresponding
 - Replace user email in `PBS -M` option
 - Modify `WORK_DIR` in `1_run_cbx.pbs` file
 - Copy `test_counts_<PUR_LVL>_pur_lvl.txt` files from `test/` to `cbx/`
-- Download the `fractions_latest.sif` file from Google Drive. This is the same container provided at by [CIBERSORTx](https://hub.docker.com/r/cibersortx/fractions). We simply converted the image from Docker to Singularity, as Docker requires sudo access and Singularity does not
+- Download the `fractions_latest.sif` file from Google Drive. This is the same container provided by [CIBERSORTx](https://hub.docker.com/r/cibersortx/fractions). We simply converted the image from Docker to Singularity, as Docker requires sudo access and Singularity does not
 - Update Singularity commands
   - Path to the Singularity image `fractions_latest.sif`
   - `--token` with the token requested from [cibersortx.stanford.edu](https://cibersortx.stanford.edu/)

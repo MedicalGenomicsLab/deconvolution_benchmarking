@@ -32,11 +32,12 @@ mkdir -p $OUT_DIR
 
 # Specify path to execution scripts
 SRC_DIR="???/deconvolution_benchmarking/src"
-SCRIPT_PATH="${SRC_DIR}/1_run_dwls.R"
+SCRIPT_PATH="${SRC_DIR}/1_run_dwls_all.R"
 
 # Run DWLS
 Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_LABELS} \
 ${GENE_COUNTS_FILE} \
-${OUT_DIR} 
+${SIG_MATRIX_BUILD_METHOD} \
+${OUT_DIR}

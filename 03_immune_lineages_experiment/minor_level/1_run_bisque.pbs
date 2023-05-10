@@ -19,21 +19,27 @@ WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/minor_lev
 cd $WORK_DIR
 
 # Specify paths to data files 
-SC_REF="${WORK_DIR}/data/bisque/scaled_logged_scRNA_ref.csv"
+SC_REF="${WORK_DIR}/data/bisque/scaled_scRNA_ref.csv"
 SC_PHENOTYPES="${WORK_DIR}/data/bisque/phenotypes.csv"
 GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
 
 # Specify paths to output
-OUT_DIR="${WORK_DIR}/data/bisque/results/${PUR_LVL}"
+OUT_DIR="${WORK_DIR}/data/bisque/results_scaled/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
 # Specify path to execution scripts
 SRC_DIR="???/deconvolution_benchmarking/src"
 SCRIPT_PATH="${SRC_DIR}/1_run_bisque.R"
 
+# Decide whether we want to use marker genes. If TRUE, there must be a path
+USE_MARKER_GENES="FALSE"
+MARKER_GENES_PATH="${WORK_DIR}/data/bisque/marker_genes.csv"
+
 # Run bisque
 Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_PHENOTYPES} \
 ${GENE_COUNTS_FILE} \
+${USE_MARKER_GENES} \
+${MARKER_GENES_PATH} \
 ${OUT_DIR}

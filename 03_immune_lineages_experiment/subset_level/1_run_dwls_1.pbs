@@ -1,36 +1,54 @@
 #!/bin/bash
 #######################
-#PBS -N RUN-DWS-NORMAL-1
+#PBS -N RUN-DWS-SST-1
 #PBS -l walltime=72:00:00
-#PBS -l ncpus=10,mem=150Gb
+#PBS -l ncpus=10,mem=250Gb
 #PBS -j oe
 #PBS -m ae
 #PBS -M <EMAIL>
 #PBS -W umask=0027
-#PBS -J 1-11
+#PBS -J 1-29
 #######################
 
 module load R/3.5.0
 
 # Set cell types
 CELL_TYPES=(
-        T_cells
-        Myeloid
-        B_cells
+        T_cells_c4_CD8_ZFP36
+        T_cells_c0_CD4_CCR7
+        T_cells_c1_CD4_IL7R
+        T_cells_c3_CD4_Tfh_CXCL13
+        Myeloid_c12_Monocyte_1_IL1B
+        B_cells_Naive
+        Myeloid_c1_LAM1_FABP5
+        T_cells_c8_CD8_LAG3
         CAFs
-        Luminal_Progenitors
-        Mature_Luminal
-        Myoepithelial
+        T_cells_c7_CD8_IFNG
+        Normal_Epithelial
+        T_cells_c11_MKI67
+        T_cells_c10_NKT_cells_FCGR3A
+        B_cells_Memory
+        T_cells_c6_IFIT1
+        T_cells_c2_CD4_T_regs_FOXP3
+        T_cells_c9_NK_cells_AREG
         Endothelial
+        Myeloid_c10_Macrophage_1_EGR1
+        Cycling_Myeloid
+        Myeloid_c4_DCs_pDC_IRF7
+        Myeloid_c2_LAM2_APOE
         PVL
+        Myeloid_c9_Macrophage_2_CXCL10
         Plasmablasts
+        Myeloid_c8_Monocyte_2_S100A9
+        Myeloid_c3_cDC1_CLEC9A
+        Myeloid_c11_cDC2_CD1C
         Cancer_Epithelial
 )
 CELL_TYPE="${CELL_TYPES[$PBS_ARRAY_INDEX-1]}"
 echo "Running DE analysis for ${CELL_TYPE}"
 
 # Set working directory
-WORK_DIR="???/deconvolution_benchmarking/02_normal_epithelial_lineages_experiment"
+WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/subset_level"
 cd $WORK_DIR
 
 # Specify paths to data files

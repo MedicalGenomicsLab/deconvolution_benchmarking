@@ -1,27 +1,33 @@
 #!/bin/bash
 #######################
-#PBS -N RUN-DWS-NORMAL-1
+#PBS -N RUN-DWS-MNR-1
 #PBS -l walltime=72:00:00
-#PBS -l ncpus=10,mem=150Gb
+#PBS -l ncpus=10,mem=250Gb
 #PBS -j oe
 #PBS -m ae
 #PBS -M <EMAIL>
 #PBS -W umask=0027
-#PBS -J 1-11
+#PBS -J 1-17
 #######################
 
 module load R/3.5.0
 
 # Set cell types
 CELL_TYPES=(
-        T_cells
-        Myeloid
-        B_cells
+        T_cells_CD8
+        T_cells_CD4
+        Monocyte
+        B_cells_Naive
+        Macrophage
         CAFs
-        Luminal_Progenitors
-        Mature_Luminal
-        Myoepithelial
+        Normal_Epithelial
+        DCs
+        Cycling_T_cells
+        NKT_cells
+        B_cells_Memory
+        NK_cells
         Endothelial
+        Cycling_Myeloid
         PVL
         Plasmablasts
         Cancer_Epithelial
@@ -30,7 +36,7 @@ CELL_TYPE="${CELL_TYPES[$PBS_ARRAY_INDEX-1]}"
 echo "Running DE analysis for ${CELL_TYPE}"
 
 # Set working directory
-WORK_DIR="???/deconvolution_benchmarking/02_normal_epithelial_lineages_experiment"
+WORK_DIR="???/deconvolution_benchmarking/03_immune_lineages_experiment/minor_level"
 cd $WORK_DIR
 
 # Specify paths to data files

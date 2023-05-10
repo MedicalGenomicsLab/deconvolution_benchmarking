@@ -34,10 +34,21 @@ SCRIPT_PATH="${SRC_DIR}/1_run_bprism.R"
 # Number of cores we'd like to run BayesPrism with
 N_CPUS="10"
 
+# Specify whether we'd like to use:
+# - protein-coding genes 
+# - marker genes
+# - cell state labels
+USE_PROTEIN_CODING_GENES="FALSE"
+USE_MARKER_GENES="FALSE"
+USER_CELL_STATE_LABELS="FALSE"
+
 # Run BayesPrism
 Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_LABELS} \
 ${GENE_COUNTS_FILE} \
 ${OUT_DIR} \
-${N_CPUS}
+${N_CPUS} \
+${USE_PROTEIN_CODING_GENES} \
+${USE_MARKER_GENES} \
+${USER_CELL_STATE_LABELS}
