@@ -2,7 +2,7 @@
 #######################
 #PBS -N RUN-SDN-NORMAL
 #PBS -l walltime=72:00:00
-#PBS -l ngpus=1,ncpus=4,mem=20Gb
+#PBS -l ngpus=1,ncpus=4,mem=50Gb
 #PBS -j oe
 #PBS -m ae
 #PBS -q gpu

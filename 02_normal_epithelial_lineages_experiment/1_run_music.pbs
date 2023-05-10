@@ -26,6 +26,15 @@ GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
 OUT_DIR="${WORK_DIR}/data/music/results/${PUR_LVL}"
 mkdir -p $OUT_DIR
 
+# Decide whether we want to use cell subtypes. If TRUE, there must be a path
+USE_CELL_SUBTYPES="FALSE"
+CELL_SUBTYPES_PATH="None"
+
+# Decide whether we want to use marker genes. If TRUE, there must be a path
+# USE_CELL_SUBTYPES is TRUE. USE_MARKER_GENES must be TRUE
+USE_MARKER_GENES="FALSE"
+MARKER_GENES_PATH="${WORK_DIR}/data/music/marker_genes.json"
+
 # Specify path to execution scripts
 SRC_DIR="???/deconvolution_benchmarking/src"
 SCRIPT_PATH="${SRC_DIR}/1_run_music.R"
@@ -34,4 +43,8 @@ Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_PHENOTYPES} \
 ${GENE_COUNTS_FILE} \
+${USE_MARKER_GENES} \
+${MARKER_GENES_PATH} \
+${USE_CELL_SUBTYPES} \
+${CELL_SUBTYPES_PATH} \
 ${OUT_DIR}
