@@ -1,6 +1,6 @@
 #!/bin/bash
 #######################
-#PBS -N RUN-BPR-9
+#PBS -N RUN-DWS-9-2
 #PBS -l walltime=72:00:00
 #PBS -l ncpus=10,mem=120Gb
 #PBS -j oe
@@ -10,7 +10,7 @@
 #PBS -J 1-19
 #######################
 
-module load R/4.0.2
+module load R/3.5.0
 
 # Set purity level
 PURITY_LEVELS=(
@@ -41,36 +41,30 @@ WORK_DIR="???/deconvolution_benchmarking/01_purity_levels_experiment/include_nor
 cd $WORK_DIR
 
 # Specify paths to data files
-SC_REF="${WORK_DIR}/data/bprism/scRNA_ref.csv"
-SC_LABELS="${WORK_DIR}/data/bprism/single_cell_labels.csv"
+SC_REF="${WORK_DIR}/data/dwls/scRNA_ref.csv"
+SC_LABELS="${WORK_DIR}/data/dwls/single_cell_labels.csv"
 GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.txt"
-
-# Specify paths to output
-OUT_DIR="${WORK_DIR}/data/bprism/results/${PUR_LVL}"
-mkdir -p $OUT_DIR
 
 # Specify path to execution scripts
 SRC_DIR="???/deconvolution_benchmarking/src"
-SCRIPT_PATH="${SRC_DIR}/1_run_bprism.R"
+SCRIPT_PATH="${SRC_DIR}/1_run_dwls_2.R"
 
-# Number of cores we'd like to run BayesPrism with
-N_CPUS="10"
+# Decide whether we want to use Seurat or MAST to build internal signature matrix
+# Must be either "seurat" or "mast"
+SIG_MATRIX_BUILD_METHOD="seurat"
 
-# Specify whether we'd like to use:
-# - protein-coding genes 
-# - marker genes
-# - cell state labels
-USE_PROTEIN_CODING_GENES="FALSE"
-USE_MARKER_GENES="FALSE"
-USER_CELL_STATE_LABELS="TRUE"
+# Specify path to differential expression output 
+DE_OUTPUT_PATH="${WORK_DIR}/data/dwls/results_${SIG_MATRIX_BUILD_METHOD}"
 
-# Run BayesPrism
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/dwls/results_${SIG_MATRIX_BUILD_METHOD}/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+# Run DWLS
 Rscript ${SCRIPT_PATH} \
 ${SC_REF} \
 ${SC_LABELS} \
 ${GENE_COUNTS_FILE} \
-${OUT_DIR} \
-${N_CPUS} \
-${USE_PROTEIN_CODING_GENES} \
-${USE_MARKER_GENES} \
-${USER_CELL_STATE_LABELS}
+${SIG_MATRIX_BUILD_METHOD} \
+${DE_OUTPUT_PATH} \
+${OUT_DIR}
