@@ -6,7 +6,7 @@ confidence_interval <- as.logical(temp_args[4])
 output_dir <- temp_args[5]
 
 source(
-  "???/deconvolution_benchmarking/src/1_CPM_functions.R"
+  "???/deconvolution_benchmarking/src/utils/1_CPM_functions.R"
 )
 
 # Load output from stage 1

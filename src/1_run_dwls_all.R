@@ -7,9 +7,9 @@ library(ROCR)
 library(varhandle)
 library(MAST)
 
-# Load dwls functions
+# Load dwls functions as provided from https://bitbucket.org/yuanlab/dwls
 source(
-  "/working/lab_nicw/khoaT/deep_tme/tme_profiling/tme_profiling_tools/dwls/R/functions.R"
+  "???/deconvolution_benchmarking/src/utils/functions.R"
 )
 
 temp_args <- commandArgs(trailingOnly = T)
