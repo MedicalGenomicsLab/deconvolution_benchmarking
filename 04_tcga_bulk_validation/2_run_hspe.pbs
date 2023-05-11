@@ -1,0 +1,67 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-HSP-TCGA
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=2,mem=100Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-20
+#######################
+
+module load R/4.0.2
+
+# Set tumour purity level and shard
+SHARDS=(
+        0
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+        11
+        12
+        13
+        14
+        15
+        16
+        17
+        18
+        19
+)
+SHARD="${SHARDS[$PBS_ARRAY_INDEX-1]}"
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/deconv/hspe/scRNA_ref.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/deconv/hspe/logged_test_counts_${SHARD}.txt"
+PUR_SAMPLES="${WORK_DIR}/data/deconv/hspe/pure_samples.json"
+
+# Decide whether we want to use marker genes. If TRUE, there must be a path
+USE_MARKER_GENES="FALSE"
+MARKER_GENES_PATH="None"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/deconv/hspe/results/${SHARD}"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_hspe.R"
+
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${GENE_COUNTS_FILE} \
+${PUR_SAMPLES} \
+${USE_MARKER_GENES} \
+${MARKER_GENES_PATH} \
+${OUT_DIR}

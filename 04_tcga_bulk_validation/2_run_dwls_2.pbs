@@ -1,0 +1,45 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-DWLS-TCGA-2
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=150Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load R/3.5.0
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/deconv/dwls/scRNA_ref.csv"
+SC_LABELS="${WORK_DIR}/data/deconv/dwls/single_cell_labels.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/deconv/test/tcga_tpm_counts.csv"
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_dwls_2.R"
+
+# Decide whether we want to use Seurat or MAST to build internal signature matrix
+# Must be either "seurat" or "mast"
+SIG_MATRIX_BUILD_METHOD="seurat"
+
+# Specify path to differential expression output 
+DE_OUTPUT_PATH="${WORK_DIR}/data/deconv/dwls/results_${SIG_MATRIX_BUILD_METHOD}"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/dwls/deconv/results_${SIG_MATRIX_BUILD_METHOD}"
+mkdir -p $OUT_DIR
+
+# Run DWLS
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_LABELS} \
+${GENE_COUNTS_FILE} \
+${SIG_MATRIX_BUILD_METHOD} \
+${DE_OUTPUT_PATH} \
+${OUT_DIR}

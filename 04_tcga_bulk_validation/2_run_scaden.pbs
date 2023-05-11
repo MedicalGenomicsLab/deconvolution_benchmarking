@@ -1,0 +1,46 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-SDN-TCGA
+#PBS -l walltime=72:00:00
+#PBS -l ngpus=1,ncpus=4,mem=150Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -q gpu
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+source /software/scaden/scaden-0.9.4-venv/bin/activate
+module load gpu/cuda/10.1
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation/data/deconv/scaden"
+cd $WORK_DIR
+
+# Specify paths to data files
+MODEL="filtered_ensembl_id"
+MODEL_DIR="${MODEL}/model"
+mkdir -p $MODEL_DIR
+
+GENE_COUNTS_FILE="tcga_tpm_counts.csv"
+OUT_FILE="./${MODEL}/results.txt"
+
+# Process data
+TRAIN_ADATA="train_counts.h5ad"
+PROCESSED_TRAIN_ADATA="processed_${TRAIN_ADATA}"
+scaden process \
+${TRAIN_ADATA} \
+${GENE_COUNTS_FILE} \
+--processed_path ${MODEL}/${PROCESSED_TRAIN_ADATA}
+
+# Train model
+scaden train \
+${MODEL}/${PROCESSED_TRAIN_ADATA} \
+--steps 15000 \
+--model_dir ${MODEL_DIR} 
+
+# Run prediction
+scaden predict \
+--model_dir $MODEL_DIR \
+--outname $OUT_FILE \
+$GENE_COUNTS_FILE

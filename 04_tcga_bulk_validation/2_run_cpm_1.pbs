@@ -1,0 +1,46 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-CPM-TCGA-1
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=48,mem=150Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load R/4.0.2
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation"
+cd $WORK_DIR
+
+# Specify paths to data files
+EXPERIMENT="expr_2_original_cellstate_1330_per_ctype"
+
+SC_REF="${WORK_DIR}/data/deconv/cpm/${EXPERIMENT}/scRNA_ref_1330_per_ctype.txt"
+SC_LABELS="${WORK_DIR}/data/deconv/cpm/${EXPERIMENT}/single_cell_label.csv"
+SC_SPACE="${WORK_DIR}/data/deconv/cpm/${EXPERIMENT}/cell_state.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/deconv/test/tcga_tpm_counts.csv"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/deconv/cpm/${EXPERIMENT}/results/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_cpm_1.R"
+
+# CPM parameters
+NUM_CORES=48
+NEIGHBORHOOD_SIZE=50
+
+# Run CPM - Stage 1
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_LABELS} \
+${SC_SPACE} \
+${GENE_COUNTS_FILE} \
+${OUT_DIR} \
+${NUM_CORES} \
+${NEIGHBORHOOD_SIZE}

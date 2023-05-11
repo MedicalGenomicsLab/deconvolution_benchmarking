@@ -1,0 +1,35 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-CBX-TCGA
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=4,mem=120Gb 
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load singularity/3.7.1
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation/data/deconv/cbx"
+cd $WORK_DIR
+
+# Specify paths to data files and output
+GENE_COUNTS_FILE="tcga_tpm_counts.csv"
+OUT_DIR="./results"
+mkdir -p $OUT_DIR
+
+# Run CBX
+singularity run \
+-B ./:/src/data \
+-B $OUT_DIR:/src/outdir \
+--pwd /src \
+/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+--username <EMAIL> \
+--token <TOKEN> \
+--single_cell TRUE \
+--rmbatchSmode TRUE \
+--perm 100 \
+--refsample scRNA_ref.tsv \
+--mixture $GENE_COUNTS_FILE

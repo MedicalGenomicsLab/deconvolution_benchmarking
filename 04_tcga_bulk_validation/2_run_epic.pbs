@@ -1,0 +1,40 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-EPIC-TCGA
+#PBS -l walltime=48:00:00
+#PBS -l ncpus=4,mem=50Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load R/4.0.2
+
+# Set workin g directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation"
+cd $WORK_DIR
+
+# Specify paths to data files
+GENE_REF="${WORK_DIR}/data/deconv/epic/cbx_sig_matrix/reference_profiles.csv"
+SIG_GENES_FILE="${WORK_DIR}/data/deconv/epic/cbx_sig_matrix/marker_gene_symbols.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/deconv/test/tcga_tpm_counts.csv"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/deconv/epic/cbx_sig_matrix/results"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_epic.R"
+
+# EPIC parameter 
+SIG_MATRIX="cbx"
+
+# Run EPIC
+Rscript ${SCRIPT_PATH} \
+${GENE_REF} \
+${GENE_COUNTS_FILE} \
+${SIG_MATRIX} \
+${SIG_GENES_FILE} \
+${OUT_DIR} 

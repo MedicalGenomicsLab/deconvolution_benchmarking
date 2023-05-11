@@ -1,0 +1,42 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-BSQ-TCGA
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=125Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#######################
+
+module load R/4.0.2
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/04_tcga_bulk_validation"
+cd $WORK_DIR
+
+# Specify paths to data files 
+SC_REF="${WORK_DIR}/data/deconv/bisque/scaled_scRNA_ref.csv"
+SC_PHENOTYPES="${WORK_DIR}/data/deconv/bisque/phenotypes.csv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/deconv/test/tcga_tpm_counts.csv"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/deconv/bisque/results"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_bisque.R"
+
+# Decide whether we want to use marker genes. If TRUE, there must be a path
+USE_MARKER_GENES="FALSE"
+MARKER_GENES_PATH="None"
+
+# Run bisque
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_PHENOTYPES} \
+${GENE_COUNTS_FILE} \
+${USE_MARKER_GENES} \
+${MARKER_GENES_PATH} \
+${OUT_DIR}
