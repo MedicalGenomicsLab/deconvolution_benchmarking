@@ -38,6 +38,7 @@ CenOS Linux 7 (Core). Below are the dependencies for the Python and R languages.
 - gtfparse 1.2.0
 - plotly 4.1.0
 - smote-variants 0.4.0
+- blackcellmagic 0.0.2
 
 ## R dependencies
 The method DWLS requires R/3.5.0 environment while all other R-based methods require R/4.0.2 environment. 
