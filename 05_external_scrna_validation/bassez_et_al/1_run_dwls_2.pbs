@@ -1,0 +1,69 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-DWS-BASSEZ-ET-AL-2
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=150Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -J 1-19
+#######################
+
+module load R/3.5.0
+
+# Set purity level
+PURITY_LEVELS=(
+        0.05
+        0.1
+        0.15
+        0.2
+        0.25
+        0.3
+        0.35
+        0.4
+        0.45
+        0.5
+        0.55
+        0.6
+        0.65
+        0.7
+        0.75
+        0.8
+        0.85
+        0.9
+        0.95
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/05_external_scrna_validation/bassez_et_al"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/dwls/scRNA_ref.tsv"
+SC_LABELS="${WORK_DIR}/data/dwls/single_cell_labels.tsv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.tsv"
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_dwls_2.R"
+
+# Decide whether we want to use Seurat or MAST to build internal signature matrix
+# Must be either "seurat" or "mast"
+SIG_MATRIX_BUILD_METHOD="seurat"
+
+# Specify path to differential expression output 
+DE_OUTPUT_PATH="${WORK_DIR}/data/dwls/results_${SIG_MATRIX_BUILD_METHOD}"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/dwls/results_${SIG_MATRIX_BUILD_METHOD}/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+# Run DWLS
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_LABELS} \
+${GENE_COUNTS_FILE} \
+${SIG_MATRIX_BUILD_METHOD} \
+${DE_OUTPUT_PATH} \
+${OUT_DIR}

@@ -1,0 +1,80 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-BPR-PAL-ET-AL
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=100Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-19
+#######################
+
+module load R/4.2.0
+
+# Set purity level
+PURITY_LEVELS=(
+        0.05
+        0.1
+        0.15
+        0.2
+        0.25
+        0.3
+        0.35
+        0.4
+        0.45
+        0.5
+        0.55
+        0.6
+        0.65
+        0.7
+        0.75
+        0.8
+        0.85
+        0.9
+        0.95
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/05_external_scrna_validation/pal_et_al"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/bprism/scRNA_ref.tsv"
+SC_LABELS="${WORK_DIR}/data/bprism/single_cell_labels.tsv"
+GENE_COUNTS_FILE="${WORK_DIR}/data/test/test_counts_${PUR_LVL}_pur_lvl.tsv"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/bprism_v2/results_no_marker_genes/${PUR_LVL}"
+mkdir -p $OUT_DIR
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_bprism.R"
+
+# Number of cores we'd like to run BayesPrism with
+N_CPUS="20"
+
+# Specify whether we'd like to use:
+# - protein-coding genes 
+# - marker genes
+# - cell state labels
+USE_PROTEIN_CODING_GENES="FALSE"
+USE_MARKER_GENES="FALSE"
+USER_CELL_STATE_LABELS="FALSE"
+
+# We control for proportions of cancer cells, specify the label so Python can recognize them
+CANCER_LABEL="Cancer_epithelial"
+
+# Run BayesPrism
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_LABELS} \
+${GENE_COUNTS_FILE} \
+${OUT_DIR} \
+${N_CPUS} \
+${USE_PROTEIN_CODING_GENES} \
+${USE_MARKER_GENES} \
+${USER_CELL_STATE_LABELS} \
+${CANCER_LABEL}

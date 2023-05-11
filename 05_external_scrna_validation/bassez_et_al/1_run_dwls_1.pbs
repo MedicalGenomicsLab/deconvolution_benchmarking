@@ -1,0 +1,55 @@
+#!/bin/bash
+#######################
+#PBS -N RUN-DWS-BASSEZ-ET-AL-1
+#PBS -l walltime=72:00:00
+#PBS -l ncpus=10,mem=150Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -M <EMAIL>
+#PBS -W umask=0027
+#PBS -J 1-8
+#######################
+
+module load R/3.5.0
+
+# Set cell types
+CELL_TYPES=(
+        Cancer_cell
+        T_cell
+        B_cell
+        Myeloid_cell
+        Endothelial_cell
+        Fibroblast
+        Mast_cell
+        pDC
+)
+CELL_TYPE="${CELL_TYPES[$PBS_ARRAY_INDEX-1]}"
+echo "Running DE analysis for ${CELL_TYPE}"
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/05_external_scrna_validation/bassez_et_al"
+cd $WORK_DIR
+
+# Specify paths to data files
+SC_REF="${WORK_DIR}/data/dwls/scRNA_ref.tsv"
+SC_LABELS="${WORK_DIR}/data/dwls/single_cell_labels.tsv"
+
+# Specify path to execution scripts
+SRC_DIR="???/deconvolution_benchmarking/src"
+SCRIPT_PATH="${SRC_DIR}/1_run_dwls_1.R"
+
+# Decide whether we want to use Seurat or MAST to build internal signature matrix
+# Must be either "seurat" or "mast"
+SIG_MATRIX_BUILD_METHOD="seurat"
+
+# Specify paths to output
+OUT_DIR="${WORK_DIR}/data/dwls/results_${SIG_MATRIX_BUILD_METHOD}"
+mkdir -p $OUT_DIR
+
+# Run DWLS
+Rscript ${SCRIPT_PATH} \
+${SC_REF} \
+${SC_LABELS} \
+${CELL_TYPE} \
+${OUT_DIR} \
+${SIG_MATRIX_BUILD_METHOD} 
