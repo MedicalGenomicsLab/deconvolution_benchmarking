@@ -1,6 +1,8 @@
 <h1>  Deconvolution benchmarking </h1>
 
 Source code to reproduce results described in the article **Performance of tumour microenvironment deconvolution methods in breast cancer using single-cell simulated bulk mixtures** submitted to Nature Communications on 31st July 2022.
+DOI: [![DOI](https://zenodo.org/badge/523560627.svg)](https://zenodo.org/badge/latestdoi/523560627)
+
 
 - [System requirements](#system-requirements)
   - [Python dependencies](#python-dependencies)
