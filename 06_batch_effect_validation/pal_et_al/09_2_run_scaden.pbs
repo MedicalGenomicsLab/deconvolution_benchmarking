@@ -1,0 +1,68 @@
+#!/bin/bash
+#######################
+#PBS -N SDN-MJR-IMMUNE
+#PBS -l walltime=72:00:00
+#PBS -l ngpus=1,ncpus=4,mem=50Gb
+#PBS -j oe
+#PBS -m ae
+#PBS -q gpu
+#PBS -M Khoa.TranQIMRBerghofer.edu.au
+#PBS -W umask=0027
+#PBS -J 1-19
+#######################
+
+source /software/scaden/scaden-0.9.4-venv/bin/activate
+module load gpu/cuda/10.1
+
+# Set purity level
+PURITY_LEVELS=(
+        0.05
+        0.1
+        0.15
+        0.2
+        0.25
+        0.3
+        0.35
+        0.4
+        0.45
+        0.5
+        0.55
+        0.6
+        0.65
+        0.7
+        0.75
+        0.8
+        0.85
+        0.9
+        0.95
+)
+PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
+
+# Set working directory
+WORK_DIR="???/deconvolution_benchmarking/06_batch_effect_validation/pal_et_al/data/scaden"
+cd $WORK_DIR
+
+# Specify paths to data files
+MODEL_DIR="${PUR_LVL}/model"
+mkdir -p $MODEL_DIR
+
+GENE_COUNTS_FILE="test_counts_${PUR_LVL}_pur_lvl.tsv"
+OUT_FILE="./${PUR_LVL}/results_${PUR_LVL}.tsv"
+
+# Process data
+scaden process \
+train_counts.h5ad \
+${GENE_COUNTS_FILE} \
+--processed_path ${PUR_LVL}/processed_train_counts_${PUR_LVL}.h5ad
+
+# Train model
+scaden train \
+${PUR_LVL}/processed_train_counts_${PUR_LVL}.h5ad \
+--steps 15000 \
+--model_dir ${MODEL_DIR} 
+
+# Run prediction
+scaden predict \
+--model_dir $MODEL_DIR \
+--outname $OUT_FILE \
+$GENE_COUNTS_FILE
