@@ -25,7 +25,7 @@ singularity run \
 -B ./:/src/data \
 -B $OUT_DIR:/src/outdir \
 --pwd /src \
-/working/genomeinfo/share/containers/singularity/fractions_latest.sif \
+???/fractions_latest.sif \
 --username <EMAIL> \
 --token <TOKEN> \
 --single_cell TRUE \

@@ -36,7 +36,7 @@ PURITY_LEVELS=(
 PUR_LVL="${PURITY_LEVELS[$PBS_ARRAY_INDEX-1]}"
 
 # Set working directory
-WORK_DIR="???/deconvolution_benchmarking/06_batch_effect_validation/bassez_et_al"
+WORK_DIR="???/deconvolution_benchmarking/06_batch_effect_validation/bassez_et_al/data/cbx"
 cd $WORK_DIR
 
 # Specify paths to data files and output
